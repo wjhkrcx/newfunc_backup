@@ -1,0 +1,29 @@
+分组(教师成绩统计表中写的复杂语句)
+
+" select "
+	+" cjdj, "
+	+" decode(cjdj,'A','85~100','B','75~84','C','65~74','D','60~64','E','0~59','作弊,退学,旷考,缓修,放弃,不通') Describe, "
+	+" count(cjdj) num ,"
+	+" case when cjdj='其他' then '不计入有效考试次数' else"
+	+" to_char(round(count(cjdj)/(select count(*) from cj_dqrcjxxb where cj>=0 and xq='"+xq.trim()+"' and kcbjh='"+kcbjh+"'),4)*100,'990.00')||'%' end as percentage "
+		+" from (select cj,case  when cj>=85 and cj<=100 then 'A' "
+					+" when cj>=75 and cj<=84  then 'B' "
+					+" when cj>=65 and cj<=74  then 'C' "
+					+" when cj>=60 and cj<=64  then 'D' "
+					+" when cj>=0  and cj<=59  then 'E' "
+					+" else '其他' end  as cjdj "
+					+" from cj_dqrcjxxb where xq='"+xq.trim()+"' and kcbjh='"+kcbjh+"') "
+					+" group by cjdj order by cjdj ";
+
+多字段作为条件的多表查询(存在无主键表时应当distinct对结果去重)
+第一种无法指定（+）只能为全连接
+select * from pk_kkrw a, pk_kcbjs c where (to_char(a.KCBJH)||to_char(a.ND)||to_char(a.XQDM))=(to_char(c.KCBJH)||to_char(c.ND)||to_char(c.XQDM)) and a.nd='2014' and a.xqdm='3' and a.kcbjh='ZMMM060101' order by a.nd desc,a.xqdm desc 
+
+select * from pk_kkrw a, pk_kcbjs c where a.KCBJH=c.KCBJH(+) and  a.ND=c.ND(+) and a.XQDM=c.XQDM(+) and a.nd='2014' and a.xqdm='3' and a.kcbjh='ZMMM060101' order by a.nd desc,a.xqdm desc  
+
+
+
+
+
+替换字段a.KCBLX的值中的字母为‘’，结果不为空的语句
+REGEXP_REPLACE(a.KCBLX,'[[:alpha:]]','') is not null

@@ -1,0 +1,12 @@
+declare 
+num int;
+begin
+select count(*) into num from xt_xsmkgl where mkid='0010000' and sno='777'  ;
+if num = 0 then 
+  insert into xt_xsmkgl (mkid,sno) values ('0010000','777');
+else 
+  update xt_xsmkgl set mkid='1900100' , sno='444' where mkid='0010000' and sno='777' ;   
+end if;
+end;
+
+select * from xt_jsmkgl

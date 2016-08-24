@@ -1,0 +1,1 @@
+（1）table标签无论若无<tbody>会默认建一个table.childNodes[1].childNodes[1]才能获取第一个<tr>,<tr>结尾还有一个空节点

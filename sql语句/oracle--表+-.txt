@@ -1,0 +1,5 @@
+select mkid,'' sno,xssx,isshow,sjdm from xt_mkdm where mkxz='4'
+union --这是加
+select mkid,sno,grxssx xssx,grisshow isshow,grsjdm sjdm from xt_xsmkgl where sno='666'
+minus --这是减
+select mkid,'' sno,grxssx xssx,grisshow isshow,grsjdm sjdm from xt_xsmkgl where sno='666' 

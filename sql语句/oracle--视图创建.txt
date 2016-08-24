@@ -1,0 +1,3 @@
+create [or replace] view ems.V_U_mkgl
+as
+select * from Xt_Mkdm where mkxz='4' or mkxz='5' start with sjdm='0000000' connect by  prior mkid=sjdm order SIBLINGS by mkxz,xssx
